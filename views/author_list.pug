@@ -1,0 +1,19 @@
+extends layout 
+
+block content 
+  h1= title 
+  //- Probably better to do the display logic in the controller...
+  //- buttttt I wanted to practice conditional templating and it works so there 
+  ul 
+    each val in author_list 
+      li
+        a(href=val.url) #{val.name}
+        if !val.date_of_birth && !val.date_of_death
+          |  (no lifespan info)
+        else if !val.date_of_death
+          |  (#{val.date_of_birth_formatted} - present)
+        else
+          |  (#{val.date_of_birth_formatted} - #{val.date_of_death_formatted})
+
+    else
+      li There are no authors.
