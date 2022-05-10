@@ -6,6 +6,7 @@ var dotenv = require("dotenv").config();
 
 var indexRouter = require("./routes/index");
 var catalogRouter = require("./routes/catalog");
+var userRouter = require("./routes/users");
 
 // Create app!
 var app = express();
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 app.use("/", indexRouter);
 app.use("/catalog", catalogRouter);
+app.use("/users", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
