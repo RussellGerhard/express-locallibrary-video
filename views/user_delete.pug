@@ -1,0 +1,8 @@
+extends layout
+
+block content 
+  h1 #{user.first_name}, are you sure?
+  p(style="font-size:32px") #[strong This action cannot be undone.]
+
+  form(method="POST", action='')
+    button.btn.btn-danger Delete My Account

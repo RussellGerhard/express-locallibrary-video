@@ -19,3 +19,14 @@ block content
       li #[strong Authors:] !{data.author_count}
       li #[strong Genres:] !{data.genre_count}
         a(href='/users/register') Register
+
+    if loggedin
+      form(method="POST", action="/users/logout")
+        button.btn.btn-primary(type='submit') Log Out
+      div(style="margin-top: 20px;")
+        a(href='users/delete') Delete My Account
+    else 
+      div(style="margin:8px;")
+        a(href='users/login') Log In 
+      div(style="margin:8px;")
+        a(href='users/register') Register
