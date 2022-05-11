@@ -33,8 +33,7 @@ exports.index = function (req, res) {
       },
 
       user: (callback) => {
-        const { userId } = req.session;
-        User.findById(userId).exec(callback);
+        User.findById(req.session.userId).exec(callback);
       },
     },
     function (err, results) {

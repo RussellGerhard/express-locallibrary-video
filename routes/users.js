@@ -10,18 +10,38 @@ router.get("/register", user_controller.user_register_get);
 router.post("/register", user_controller.user_register_post);
 
 // GET user login
-router.get("/login", user_controller.user_login_get);
+router.get(
+  "/login",
+  user_controller.redirectCatalog,
+  user_controller.user_login_get
+);
 
 // POST user login
-router.post("/login", user_controller.user_login_post);
+router.post(
+  "/login",
+  user_controller.redirectCatalog,
+  user_controller.user_login_post
+);
 
 // POST user logout
-router.post("/logout", user_controller.user_logout_post);
+router.post(
+  "/logout",
+  user_controller.redirectLogin,
+  user_controller.user_logout_post
+);
 
 // GET user delete
-router.post("/delete", user_controller.user_delete_get);
+router.get(
+  "/delete",
+  user_controller.redirectLogin,
+  user_controller.user_delete_get
+);
 
 // POST user delete
-router.post("/delete", user_controller.user_delete_post);
+router.post(
+  "/delete",
+  user_controller.redirectLogin,
+  user_controller.user_delete_post
+);
 
 module.exports = router;
