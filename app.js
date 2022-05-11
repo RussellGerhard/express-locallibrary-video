@@ -3,13 +3,40 @@ var express = require("express");
 var path = require("path");
 var logger = require("morgan");
 var dotenv = require("dotenv").config();
+var MongoStore = require("connect-mongo");
+var session = require("express-session");
 
 var indexRouter = require("./routes/index");
 var catalogRouter = require("./routes/catalog");
 var userRouter = require("./routes/users");
 
+const IN_PROD = process.env.NODE_ENV === "production";
+
 // Create app!
 var app = express();
+
+// Use sessions
+app.use(
+  session({
+    name: process.env.SESS_NAME,
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.SESS_SECRET,
+    store: MongoStore.create({
+      mongoUrl: `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.zfsde.mongodb.net/local_library?retryWrites=true&w=majority`,
+      ttl: 14 * 24 * 60 * 60,
+      autoRemove: "native",
+      crypto: {
+        secret: process.env.MONGO_SECRET,
+      },
+    }),
+    cookie: {
+      maxAge: parseInt(process.env.SESS_LIFETIME),
+      sameSite: true,
+      secure: IN_PROD,
+    },
+  })
+);
 
 // Set up mongoose connection to url provided by MongoDB
 var mongoose = require("mongoose");
