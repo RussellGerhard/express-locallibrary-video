@@ -85,13 +85,14 @@ UserSchema.methods.incLoginAttempts = function (callback) {
       lockUntil: Date.now() + parseInt(process.env.LOCK_TIME),
     };
   }
+  return this.updateOne(updates, callback);
 };
 
 // Failed authentication reasons
 var reasons = (UserSchema.statics.failedLogin = {
   NOT_FOUND: 0,
   PASSWORD_INCORRECT: 1,
-  MAX_ATTEMPS: 2,
+  MAX_ATTEMPTS: 2,
 });
 
 // callback takes 3 arguments: err, user, reason
@@ -114,7 +115,7 @@ UserSchema.statics.getAuthenticated = function (email, password, callback) {
         if (err) {
           return callback(err);
         }
-        return callback(null, null, reasons.MAX_ATTEMPS);
+        return callback(null, null, reasons.MAX_ATTEMPTS);
       });
     }
 
@@ -138,7 +139,7 @@ UserSchema.statics.getAuthenticated = function (email, password, callback) {
 
         return found_user.updateOne(updates, function (err) {
           if (err) {
-            callback(err);
+            return callback(err);
           }
 
           return callback(null, found_user);

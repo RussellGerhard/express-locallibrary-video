@@ -4,6 +4,20 @@ var Book = require("../models/book");
 
 var async = require("async");
 
+// Async and await version of author_list
+// exports.author_list = async function (req, res, next) {
+//   try {
+//     var authors = await Author.find().srt({ family_name: 1, first_name: 1 });
+//     console.log(authors);
+//     res.render("author_list", {
+//       title: "Author List",
+//       author_list: authors,
+//     });
+//   } catch (err) {
+//     return next(err);
+//   }
+// };
+
 // Display list of all Authors
 exports.author_list = function (req, res, next) {
   Author.find()

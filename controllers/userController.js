@@ -95,7 +95,7 @@ exports.user_login_post = [
           case reasons.PASSWORD_INCORRECT:
             var error_message = "Password incorrect";
             break;
-          case reasons.MAX_ATTEMPS:
+          case reasons.MAX_ATTEMPTS:
             var error_message = "Too many attempts, try again in 10 seconds!";
             break;
         }
