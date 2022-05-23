@@ -152,9 +152,8 @@ exports.book_create_post = [
       genre: req.body.genre,
     });
 
+    // There are errors. Render form again with sanitized values/error messages.
     if (!errors.isEmpty()) {
-      // There are errors. Render form again with sanitized values/error messages.
-
       // Get all authors and genres for form.
       async.parallel(
         {

@@ -24,6 +24,18 @@ exports.user_register_post = [
     .isLength({ min: 1 })
     .escape(),
   (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    var user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    });
+
+    if (!errors.isEmpty()) {
+    }
+
     User.find({ email: req.body.email }, (err, found_user) => {
       if (err) {
         return next(err);
@@ -39,11 +51,6 @@ exports.user_register_post = [
       }
 
       // we can create a new user
-      var user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-      });
       user.save((err) => {
         if (err) {
           return next(err);
